@@ -55,21 +55,23 @@ We will use a VM in this demo to represent our on-premises data center and will 
 
 	**Note**: If you do not yet have access to the Bluemix VM beta, complete your request and wait for your confirmation email. This may take up to a few days, so please be patient!
 
-	a) Select the `Ubuntu 14.04` image for your VM  
+	a) Depending on the offered choices select an `Ubuntu` or `Debian` image for your VM. Then click `NEXT`.
+	![](https://raw.githubusercontent.com/data-henrik/Bluemix-onprem-data/master/screenshots/BluemixSelectVM.png)
 
-	b) Give the VM group a name. We suggest something that identifies it as your "on-premises data center". Alphanumeric or "_-." characters are allowed but no spaces.
+	b) On the next page, give the VM a name.
 
-	c) Select `SINGLE` as type.
+	c) Keep `SINGLE` as type.
 
-	d) Select the `m1.small` size, equivalent to 1.5 GB memory and 1 CPU
+	d) Select the smallest offered size.
 
-	e) Toggle `Assign pubic IP address` to make the VM accessible from outside Bluemix. Note that this public IP address is needed only to administrate the VM directly from your computer.
+	e) Make sure that `Assign pubic IP address` is active, so that the VM is accessible from outside of Bluemix. Note that this public IP address is needed only to administrate the VM directly from your computer.
 
-	f) Create an SSH key for securely connecting to your VM. For instructions on how to do this, check out the [documentation][vm_ssh_key_docs]  
+	f) Create an SSH key for securely connecting to your VM for administration. For instructions on how to do this, check out the [documentation][vm_ssh_key_docs]. Make sure to save the generated key to your machine.
 
-	g) Default to the `private` network  
+	g) Default to the `private` network (if more types are offered).  
 
 	h) Click `CREATE` to create and launch your VM. Once it has started, take note of your public IP address on the VM dashboard. The IP address is needed during some steps later on.
+	![](https://raw.githubusercontent.com/data-henrik/Bluemix-onprem-data/master/screenshots/Bluemix_VMDetails.png)
 
 3. Open a terminal and make sure that your private key file is in your working directory. It needs to have the correct permissions, to set them use the command:
 
@@ -258,7 +260,7 @@ tail -f /var/log/securegateway/client_console.log
 
 [secure_gateway_docs_url]: https://console.eu-gb.bluemix.net/docs/services/SecureGateway/
 
-[vm_ssh_key_docs]: https://www.ng.bluemix.net/docs/virtualmachines/vm_index.html#vm_ssh_key
+[vm_ssh_key_docs]: https://console.ng.bluemix.net/docs/virtualmachines/vm_index.html
 
 [vim_cheatsheet_url]: http://www.fprintf.net/vimCheatSheet.html
 
