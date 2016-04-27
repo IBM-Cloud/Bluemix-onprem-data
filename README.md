@@ -1,7 +1,7 @@
 # Python App on Bluemix using Secure Gateway for on-prem data access
 ## Integrating Web app with data residing in an on-premises data center
 
-This project provides the skeleton for a modern Cloud-based web application that accesses on-premises data, a database behind the corporate firewall. It shows how a (public or dedicated) cloud environment is used for a ["System of Engagement"](https://en.wikipedia.org/wiki/Systems_of_Engagement), while sensitive data remains in a ["System of Record"](https://en.wikipedia.org/wiki/System_of_record).
+This project provides the skeleton for a modern Cloud-based web application that accesses on-premises data, a database behind the corporate firewall. It shows how a (public or dedicated) cloud environment is used for a ["System of Engagement"](https://en.wikipedia.org/wiki/Systems_of_Engagement), while sensitive data remains in a ["System of Record"](https://en.wikipedia.org/wiki/System_of_record). For this example we are going to create an app that displays a list of web-based reading material, basically bookmarks. The user can add to it using the web interface.
 
 The web app is built with Python, the [Flask](http://flask.pocoo.org/) microframework and the [SQLAlchemy](http://www.sqlalchemy.org/) database toolkit. The app itself is database-agnostic and can be deployed with MySQL, DB2, MariaDB, Oracle and other relational database systems. The database server could be located anywhere, in the cloud or on-prem. In our example we show how the [secure gateway service][secure_gateway_docs_url] can be utilized to implement an encrypted connection between an on-premise database server and a cloud application. Depending on corporate policies it may not be possible to simply test this scenario, so we will be using a virtual machine (in the cloud) to simulate the corporate data center. The same instructions can be used to connect a database server on a local (virtual) machine.
 
@@ -24,9 +24,7 @@ By connecting modern cloud applications to these on-prem systems, we are able to
 
 
 ## Installation
-There are several components that need to be set up before being able to give this demo. These are all related to setting up a "mock" back-end system of record that our Bluemix cloud application will connect to. We estimate it will take you **45 minutes** to run through the steps, be aware that **you only have to do this once per Bluemix account**. The "mock" back-end can then be re-used for future demos.
-
-**Important Note**: During the following steps, you may see frequent warnings in your console stating `sudo: unable to resolve host vm-###` when running `sudo` root commands. You can safely ignore them.
+There are some components that need to be set up before being able to use this app. Most are related to setting up a "mock" back-end "system of record" that our cloud application will connect to. We estimate it will take you **30 to 45 minutes** to run through the steps.
 
 For convenience, we have split the steps up into 4 phases:
 
@@ -34,11 +32,11 @@ For convenience, we have split the steps up into 4 phases:
 
 **Phase 1:** Instantiate an OpenStack virtual machine (VM), which will simulate an on-premises data center.
 
-**Phase 2:** Install a MySQL database instance and seed it with records. This will simulate a database filled with human resource (HR) data.
+**Phase 2:** Install a MySQL database instance.
 
 **Phase 3:** Create a Secure Gateway and connect it to the database running in the VM.
 
-**Phase 4:** Create the app (based on [Vaadin] (https://vaadin.com/home) and JPA [Liberty] (https://en.wikipedia.org/wiki/IBM_WebSphere_Application_Server)), deploy it to Bluemix, then connect it to the Secure Gateway endpoint.
+**Phase 4:** Create the Python app, deploy it to Bluemix, then connect it to the Secure Gateway endpoint.
 
 ### Phase 1: Create a Bluemix Virtual Machine (VM)
 
@@ -46,9 +44,13 @@ We will use a VM in this demo to represent our on-premises data center and will 
 
 1. Create a Bluemix Account
 
-    [Sign up for Bluemix][bluemix_signup_url] or use an existing account.
-
+    [Sign up for Bluemix][bluemix_url] or use an existing account.
+    
 2. Create a VM from the console dashboard by clicking on `Run Virtual Machines`
+
+	**Note**: Right now the Virtual Machines are only open for new users in the EU-GB/London region. You may need to switch your account to use that region.
+	
+	![](https://raw.githubusercontent.com/data-henrik/Bluemix-onprem-data/master/screenshots/BluemixRegion.png)
 
 	**Note**: If you do not yet have access to the Bluemix VM beta, complete your request and wait for your confirmation email. This may take up to a few days, so please be patient!
 
@@ -130,7 +132,7 @@ Create a secure connection between your Bluemix app and the database running in 
 
 3. Install the Secure Gateway client into your VM using the native installer
 
-	a) Within the terminal of your VM download the native installer using the `wget` command. The file name needs to match the one shown in step 2c.
+	a) Within the terminal of your VM download the native installer using the `wget` command. The file name needs to match the one shown in step 2c. Here is an example:
 	```
 	$ wget https://sgmanager.au-syd.bluemix.net/installers/ibm-securegateway-client-1.4.2+client_amd64.deb
 	```
@@ -143,7 +145,7 @@ Create a secure connection between your Bluemix app and the database running in 
 	```
 	c) Install and configure the Secure Gateway using the native installer.
 	```
-	$ sudo dpkg -i ibm-securegateway-client-1.3.1+client_amd64.deb
+	$ sudo dpkg -i ibm-securegateway-client-1.4.2+client_amd64.deb
 	```
 	During the install process you are prompted several times for input.
 	* For "Stop and restart the client..." type in "y".
@@ -164,67 +166,50 @@ Create a secure connection between your Bluemix app and the database running in 
 	![](https://raw.githubusercontent.com/IBM-Bluemix/onprem-integration-demo/master/screenshots/gateway-connected.jpg)
 
 ### Phase 4: Deploy the Bluemix App
-Now that we have a connection to our MySQL data base (serving as a stand-in for our on-premises SoR) established, we will turn to our System-of-Engagment application. It will ingest (through the secure gateway) and then display the data.
+Now that we have a connection to our MySQL data base (serving as a stand-in for our on-premises system of record) established, we will turn to our System-of-Engagment application. To keep it simple it will display a list of bookmarks (reading list) and it will be possible to add items.
 
-The have chosen a modern web application, written in Java and making use of the Vaadin user interface library.
-
-As a prerequisite, you need Java to be installed on your local machine. If you have not done so, follow [these instructions][java_install_url].
+As mentioned earlier, the app is based on Python and uses the Flask microframework and the SQLAlchemy database toolkit. The application logic itself is in a single file and the application can be run either locally or on Bluemix. As a first step we need to get application code, either by cloning via git (see below) or by [downloading the files as zip archive](https://github.com/data-henrik/Bluemix-onprem-data/archive/master.zip).
 
 To clone, build and deploy the app on Bluemix, follow these steps:
 
 1. Clone the  github code repository, navigate to the app folder, and install the Maven dependencies:
 
 	```
-	$ git clone https://github.com/IBM-Bluemix/onprem-integration-demo.git
+	$ git clone https://github.com/.git
 
 	$ cd onprem-integration-demo/hr_jpa_ui/
 	```
 
-2. We will use [Apache Maven][maven_home_url] as our build tool for Java. If you have not done so already, you need to [download][maven_download_url] and [install it][maven_install_url].
-
-3. Build your app .war file using Maven:
-
-	```
-	mvn install
-	```
-
-4. Update the `manifest.yml` file with a unique host name for your new app (which we will refer to as APPNAME in the remaining steps).
 
 5. Download and install the [Cloud Foundry CLI][cloud_foundry_url] tool if you have not already.
 
 6. Connect to Bluemix using the CLI and follow the prompts to log in.
 
 	```
-	$ cf login -a https://api.ng.bluemix.net
+	$ cf login -a https://api.eu-gb.bluemix.net
 	```
 
 7. Push your app to Bluemix:
 
 	```
-	cf push <APPNAME> -p target/vaadin-jpa-application.war
+	cf push <APPNAME>
 	```
 
 8. Create a user provided service to broker communication to your MySQL DB:
 
 	```
-	cf cups mysql-mine -p '{
-	"jdbcUrl": "jdbc:mysql://cap-sg-prd-y.integration.ibmcloud.com:xxxxx/employees",
-	"uri": "mysql://cap-sg-prd-y.integration.ibmcloud.com:xxxxx/employees?reconnect=true",
-	"name": "employees",
-	"hostname": "cap-sg-prd-y.integration.ibmcloud.com",
-	"port": "xxxxx",
-	"user": "root",
-	"password": "password"
+	cf cups readlist -p '{
+	"url": "mysql://root:rootpassword@cap-sg-prd-y.integration.ibmcloud.com:xxxxx/readlist"
 	}'
 	```
-	The "password" is the administrator password you chose during the MySQL setup. The port number and the exact hostname can be obtained from the Secure Gateway dashboard by clicking on the "i" (info) icon as shown:
+	The "rootpassword" is the administrator password you chose during the MySQL setup. The port number and the exact hostname can be obtained from the Secure Gateway dashboard by clicking on the "i" (info) icon as shown:
 
 	![](https://raw.githubusercontent.com/data-henrik/Bluemix-onprem-data/master/screenshots/BluemixSecureGateway_CloudHost.png)
 
 9. Now bind the service to your app.
 
 	```
-	$ cf bind-service <APPNAME> mysql-mine
+	$ cf bind-service <APPNAME> readlist
 	```
 
 10. Finally, we need to restage our app to ensure the environment variables changes took effect.
@@ -244,12 +229,14 @@ The primary source of debugging information for your Bluemix app is the logs. To
 ```
 $ cf logs <APPNAME> --recent
 ```
-For more detailed information on troubleshooting your application, see the [Troubleshooting section](https://www.ng.bluemix.net/docs/troubleshoot/tr.html) in the Bluemix documentation.
+For more detailed information on troubleshooting your application, see the [Troubleshooting section](https://console.eu-gb.bluemix.net/docs/troubleshoot/troubleshoot.html) in the Bluemix documentation.
 
 ### Secure Gateway
-You can restart the Secure Gateway client within your virtual machine by issuing the following command:
+You can start/stop/restart the Secure Gateway client within your virtual machine by issuing the following commands:
 ```
-sudo /usr/local/bin/securegateway_clientd start
+sudo systemctl start securegateway_client
+sudo systemctl stop securegateway_client
+sudo systemctl restart securegateway_client
 ```
 The logs for the Secure Gateway client are located at `/var/log/securegateway/client_console.log`. If you want to see what is going on, follow the output by using:
 ```
@@ -264,21 +251,11 @@ tail -f /var/log/securegateway/client_console.log
 [IBM Redbook: Secure Cloud-to-Mainframe Connectivity with IBM Bluemix][cloud_mainframe_redbook_url]
 
 
-[bluemix_url]: https://console.ng.bluemix.net/?cm_mmc=Display-SampleApp-_-BluemixSampleApp-CapitalWeather-_-Node-WeatherChannel-_-BM-DevAd
-
-[bluemix_signup_url]: https://ibm.biz/on-prem-integration-signup
-
-[java_install_url]: https://www.java.com/en/download/help/index_installing.xml
-
-[maven_home_url]: https://maven.apache.org/index.html
-
-[maven_download_url]: https://maven.apache.org/download.cgi
-
-[maven_install_url]: https://maven.apache.org/install.html
+[bluemix_url]: http://www.ibm.com/cloud-computing/bluemix/
 
 [cloud_foundry_url]: https://github.com/cloudfoundry/cli
 
-[secure_gateway_docs_url]: https://www.ng.bluemix.net/docs/#services/SecureGateway/index.html
+[secure_gateway_docs_url]: https://console.eu-gb.bluemix.net/docs/services/SecureGateway/
 
 [vm_ssh_key_docs]: https://www.ng.bluemix.net/docs/virtualmachines/vm_index.html#vm_ssh_key
 
