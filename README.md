@@ -172,30 +172,30 @@ As mentioned earlier, the app is based on Python and uses the Flask microframewo
 
 To clone, build and deploy the app on Bluemix, follow these steps:
 
-1. Clone the  github code repository, navigate to the app folder, and install the Maven dependencies:
+1. Clone the  github code repository (or extract the zip archive) and navigate to the app folder named "webclient". The code in the webclient directory consists of a single Python script "readapp.py", a file "requirements.txt" that specifies dependencies (and hence modules that need to be installed by Bluemix) and a "Procfile" which tells Bluemix how to start the Python app.
 
 	```
-	$ git clone https://github.com/.git
+	$ git clone https://github.com/data-henrik/Bluemix-onprem-data.git
 
-	$ cd onprem-integration-demo/hr_jpa_ui/
+	$ cd Bluemix-onprem-data/webclient/
 	```
 
 
-5. Download and install the [Cloud Foundry CLI][cloud_foundry_url] tool if you have not already.
+2. Download and install the [Cloud Foundry CLI][cloud_foundry_url] tool if you have not already. The Bluemix documentation has a [section with details about the CLI, additional interfaces, and more](https://console.eu-gb.bluemix.net/docs/cli/index.html#cli).
 
-6. Connect to Bluemix using the CLI and follow the prompts to log in.
+3. Connect to Bluemix using the CLI and follow the prompts to log in.
 
 	```
 	$ cf login -a https://api.eu-gb.bluemix.net
 	```
 
-7. Push your app to Bluemix:
+4. Push your app to Bluemix:
 
 	```
 	cf push <APPNAME>
 	```
 
-8. Create a user provided service to broker communication to your MySQL DB:
+5. Create a user provided service to configure the communication to your MySQL database:
 
 	```
 	cf cups readlist -p '{
