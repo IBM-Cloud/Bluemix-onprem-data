@@ -7,7 +7,8 @@ The web app is built with Python, the [Flask](http://flask.pocoo.org/) microfram
 
 For many large customers, the core data that drives their business resides in established database systems behind their firewall, accessed through classic middleware (i.e., an Oracle or DB2 database accessed with .Net software). While this system sustains their business, its evolution is generally slow to non-existent. This structure does not promote the creation of nimble and engaging apps that employees and customers require.
 
-By connecting modern cloud applications to these on-prem systems, we are able to quickly create quality user experiences, while safely surfacing the data that we need. Read on to find out how anyone can quickly do this by using IBM Bluemix.
+By connecting modern cloud applications to these on-prem systems, we are able to quickly create quality user experiences, while safely surfacing the data that we need. The Secure Gateway that is used in this tutorial opens a communication channel from behind the firewall to the IBM Cloud. The architecture our application and is shown here.
+![](https://raw.githubusercontent.com/data-henrik/Bluemix-onprem-data/master/screenshots/SecureGateway4OnPremData.png)
 
 ##Table of Contents
 
