@@ -99,3 +99,4 @@ Please note that `create database readlist` is not part of the actual installati
 
 In this part of the documentation we have shown how to set up a Virtual Machine on Bluemix and to install the MySQL database server into it. Please go back to the [overview document](README.md) to continue.
 
+[bluemix_url]: http://www.ibm.com/cloud-computing/bluemix/
