@@ -71,6 +71,6 @@ Your Virtual Machine is now ready to have software installed. For our example we
 
 ## Closing
 
-In this part of the documentation we have shown how to set up a Virtual Machine on Bluemix. Please go back to the [overview document](README.md) to continue with the setup.
+In this part of the documentation we have shown how to set up a Virtual Machine on Bluemix. Please continue in the [overview document](README.md#phase-2-install-a-mysql-database-instance) with the setup.
 
 [bluemix_url]: http://www.ibm.com/cloud-computing/bluemix/
