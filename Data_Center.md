@@ -9,7 +9,7 @@ in a ["System of Record"](https://en.wikipedia.org/wiki/System_of_record).
 In this document we describe how to set up the "Data Center" part of the example. It is simulated by a virtual
 machine running either on [Bluemix](http://www.ibm.com/cloud-computing/bluemix/) or on your own infrastructure. If you came to this document by accident, please start reading the [overview document](README.md).
 
-In the following we describe how to provision a Virtual Machine on Bluemix, then how to install a MySQL database server
+In the following we describe how to provision a Virtual Machine on Bluemix.
 
 ### Create a Bluemix Virtual Machine (VM)
 
@@ -68,35 +68,9 @@ We will use a VM in this demo to represent our on-premises data center and will 
 Your Virtual Machine is now ready to have software installed. For our example we are going to use the MySQL database server.
 
 
-### Install a MySQL database instance
-
-6. Install MySQL on your VM:
-
-	```sh
-	$ sudo apt-get install mysql-server
-	```
-
-	**Note**: During the installation process you will be asked to assign a password to your MySQL server. Make sure to write it down, you will need it for database access.
-
-
-7. Grant remote access to your MySQL DB instance (by using the password you assigned in step 1 above), create a database and then restart the mysql service:
-
-	```
-	$ mysql -u root -p
-	Enter password: <PasswordFromStep1>
-
-	mysql> GRANT ALL ON *.* to root@'%' IDENTIFIED BY '<PasswordFromStep1>';
-	mysql> flush privileges;
-	mysql> create database readlist;
-	mysql> exit
-
-	$ sudo service mysql restart
-	```
-
-Please note that `create database readlist` is not part of the actual installation, but included for convenience. That database is needed for our application and the step is described in the database setup again.
 
 ## Closing
 
-In this part of the documentation we have shown how to set up a Virtual Machine on Bluemix and to install the MySQL database server into it. Please go back to the [overview document](README.md) to continue.
+In this part of the documentation we have shown how to set up a Virtual Machine on Bluemix. Please go back to the [overview document](README.md) to continue with the setup.
 
 [bluemix_url]: http://www.ibm.com/cloud-computing/bluemix/
