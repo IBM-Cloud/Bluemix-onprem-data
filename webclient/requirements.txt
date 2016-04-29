@@ -1,5 +1,8 @@
+# Requirements file when using MySQL
 Flask==0.10.1
 Flask-SQLAlchemy==2.1
-MySQL-python==1.2.5
 Jinja2==2.8
 SQLAlchemy==1.0.12
+
+# MySQL package for Python
+MySQL-python==1.2.5
