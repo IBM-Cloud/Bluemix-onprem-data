@@ -14,10 +14,11 @@ By connecting modern cloud applications to these on-prem systems, we are able to
 
  * [Installation](#installation)
    * [Overview](#overview)
-   * [Phase 1: Create a Bluemix Virtual Machine (VM)](#phase-1-create-a-bluemix-virtual-machine-vm)
+   * [Phase 1: Create a Virtual Machine (VM)](#phase-1-create-a-virtual-machine-vm)
    * [Phase 2: Install a MySQL database instance](#phase-2-install-a-mysql-database-instance)
    * [Phase 3: Create a Secure Gateway Connection](#phase-3-create-a-secure-gateway-connection)
    * [Phase 4: Deploy the Bluemix App](#phase-4-deploy-the-bluemix-app)
+ * [Alternative Setup](#alternative-setup)
  * [Contribute](#contribute)
  * [Troubleshooting](#troubleshooting)
  * [Secure Gateway](#secure-gateway)
@@ -41,57 +42,7 @@ For convenience, we have split the steps up into 4 phases:
 
 ### Phase 1: Create a Bluemix Virtual Machine (VM)
 
-We will use a VM in this demo to represent our on-premises data center and will host a MySQL instance in it. This represents our "System of Record".
-
-1. Create a Bluemix Account
-
-    [Sign up for Bluemix][bluemix_url] or use an existing account.
-    
-2. Create a VM from the console dashboard by clicking on `Run Virtual Machines`
-
-	**Note**: Right now the Virtual Machines are only open for new users in the EU-GB/London region. You may need to switch your account to use that region.
-	
-	![](https://raw.githubusercontent.com/data-henrik/Bluemix-onprem-data/master/screenshots/BluemixRegion.png)
-
-	**Note**: If you do not yet have access to the Bluemix VM beta, complete your request and wait for your confirmation email. This may take up to a few days, so please be patient!
-
-	a) Depending on the offered choices select an `Ubuntu` or `Debian` image for your VM. Then click `NEXT`.
-	![](https://raw.githubusercontent.com/data-henrik/Bluemix-onprem-data/master/screenshots/BluemixSelectVM.png)
-
-	b) On the next page, give the VM a name.
-
-	c) Keep `SINGLE` as type.
-
-	d) Select the smallest offered size.
-
-	e) Make sure that `Assign pubic IP address` is active, so that the VM is accessible from outside of Bluemix. Note that this public IP address is needed only to administrate the VM directly from your computer.
-
-	f) Create an SSH key for securely connecting to your VM for administration. For instructions on how to do this, check out the [documentation][vm_ssh_key_docs]. Make sure to save the generated key to your machine.
-
-	g) Default to the `private` network (if more types are offered).  
-
-	h) Click `CREATE` to create and launch your VM. Once it has started, take note of your public IP address on the VM dashboard. The IP address is needed during some steps later on.
-	![](https://raw.githubusercontent.com/data-henrik/Bluemix-onprem-data/master/screenshots/Bluemix_VMDetails.png)
-
-3. Open a terminal and make sure that your private key file is in your working directory. It needs to have the correct permissions, to set them use the command:
-
-	```sh
-	$ chmod 700 ./NameOfMyPrivateKeyFile.pem
-	```
-
-4. Use the ssh command to log into your newly created VM. Make sure to substitute the public IP address of your VM (it should start with 129) for XXX.XX.XXX.XX.
-
-	```sh
-	$ ssh -i ./NameOfMyPrivateKeyFile.pem ibmcloud@XXX.XX.XXX.XX
-	```
-
-	If you receive a "No route to host" error, it is an indicator that the network fabric has not yet completed the setup. Wait a minute or two and retry.
-
-5. Resync your VM's package index files from their sources:
-
-	```sh
-	$ sudo apt-get update
-	```
+In the [Data Center](Data_Center.md) document we are describing how to set up a Virtual Machine on Bluemix. As another option you could use a virtual machine installed on your laptop or server. You need to install MySQL or another database into it (see [alternative setup](#alternative-setup) for details.
 
 ### Phase 2: Install a MySQL database instance
 
@@ -118,6 +69,7 @@ We will use a VM in this demo to represent our on-premises data center and will 
 	$ sudo service mysql restart
 	```
 
+Please note that `create database readlist` is not part of the actual server installation, but included for convenience. It is all in preparing the database itself. The rest is done by the web application on its own.
 
 ### Phase 3: Create a Secure Gateway Connection
 Create a secure connection between your Bluemix app and the database running in your VM.
@@ -220,6 +172,9 @@ To clone, build and deploy the app on Bluemix, follow these steps:
 	```
 	$ cf restage <APPNAME>
 	```
+## Alternative Setup
+
+Use dashDB on Bluemix or another relational database system.
 
 ## Contribute
 
