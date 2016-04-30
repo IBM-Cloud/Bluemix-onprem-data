@@ -18,6 +18,7 @@ By connecting modern cloud applications to these on-prem systems, we are able to
    * [Phase 2: Install a MySQL database instance](#phase-2-install-a-mysql-database-instance)
    * [Phase 3: Create a Secure Gateway Connection](#phase-3-create-a-secure-gateway-connection)
    * [Phase 4: Deploy the Bluemix App](#phase-4-deploy-the-bluemix-app)
+ * [Understanding and Using the App](#understanding-and-using-the-app)
  * [Alternative Setup](#alternative-setup)
  * [Contribute](#contribute)
  * [Troubleshooting](#troubleshooting)
@@ -172,6 +173,9 @@ To clone, build and deploy the app on Bluemix, follow these steps:
 	```
 	$ cf restage <APPNAME>
 	```
+## Understanding and Using the App
+
+[The guide to understanding and using the simple reading list app are in this separate file](ReadingListApp.md).
 
 ## Alternative Setup
 
