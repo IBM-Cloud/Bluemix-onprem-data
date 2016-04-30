@@ -174,7 +174,18 @@ To clone, build and deploy the app on Bluemix, follow these steps:
 	```
 ## Alternative Setup
 
-Use dashDB on Bluemix or another relational database system.
+Instead of using the web application with a MySQL database as described above it can also be used with other database systems. The reason is that the [SQLAlchemy framework](http://docs.sqlalchemy.org/en/rel_1_0/core/engines.html#database-urls) is used. By specifying a different URL type within the user-provided service, the schema and related queries are adapted to the other target system. The only other change is to add the database-specific Python module to the [requirements.txt](webclient/requirements.txt) file.
+
+If you want to use dashDB on Bluemix, the command to register the database URL would look like this:
+
+```
+cf cups readlist -p '{
+"url": "db2+ibm_db://dashDBUser:password@yp-dashdb-small-xx-lonyy.services.eu-gb.bluemix.net:50000/BLUDB" }'
+```
+
+The same database prefix would be used for a DB2 system. The dashDB/DB2-specific Python module would be `ibm_db_sa` and `ibm_db`. A sample requiremens.txt is provided as [requirements.txt.db2](webclient/requirements.txt.db2).
+
+See the [SQLAlchemy documentation](http://docs.sqlalchemy.org/en/rel_1_0/core/engines.html#supported-databases) for how to specify the URL for other supported database systems.
 
 ## Contribute
 
