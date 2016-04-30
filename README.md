@@ -172,6 +172,7 @@ To clone, build and deploy the app on Bluemix, follow these steps:
 	```
 	$ cf restage <APPNAME>
 	```
+
 ## Alternative Setup
 
 Instead of using the web application with a MySQL database as described above it can also be used with other database systems. The reason is that the [SQLAlchemy framework](http://docs.sqlalchemy.org/en/rel_1_0/core/engines.html#database-urls) is used. By specifying a different URL type within the user-provided service, the schema and related queries are adapted to the other target system. The only other change is to add the database-specific Python module to the [requirements.txt](webclient/requirements.txt) file.
