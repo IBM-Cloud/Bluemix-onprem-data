@@ -173,6 +173,8 @@ To clone, build and deploy the app on Bluemix, follow these steps:
 	```
 	$ cf restage <APPNAME>
 	```
+
+
 ## Understanding and Using the App
 
 [The guide to understanding and using the simple reading list app are in this separate file](ReadingListApp.md).
