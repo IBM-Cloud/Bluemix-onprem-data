@@ -80,7 +80,7 @@ Create a secure connection between your Bluemix app and the database running in 
 2. In the secure gateway console choose `ADD GATEWAY` and:
 
 	a) Give your gateway a name, toggle `Enforce security token on client` so that it is not active, and then click on `ADD DESTINATION`  
-	b) Give the destination a name, enter `127.0.0.1` as IP address, port 3306, keep TCP selected, and click the `+` button. The loopback ip address (127.0.0.1) is used because the Secure Gateway client connects to the MySQL server locally.
+	b) Give the destination a name, enter `127.0.0.1` as IP address, port 3306, keep TCP selected, and click the `+` button. The loopback ip address (127.0.0.1) is used because the Secure Gateway client connects to the MySQL server locally. If the MySQL server is on another machine, its IP address must be specified.
 
 	c) Click `CONNECT IT` to retrieve the command you will need to establish the secure connection from your VM. There are options for the native installer (IBM Installer), running a docker image or using IBM DataPower.
 	Select `IBM Installer`, the screen should look as shown. Note down the Gateway ID. It is needed in step 3b. ![](https://raw.githubusercontent.com/IBM-Bluemix/Bluemix-onprem-data/master/screenshots/sg-native-installer.png)
@@ -117,9 +117,9 @@ Create a secure connection between your Bluemix app and the database running in 
 	```
 	The output should indicate that "The Secure Gateway tunnel is connected".
 
-4. The Bluemix dashboard should also indicate that the Secure Gateway is now connected. It can be checked in the secure gateway console:
+4. The Secure Gateway dashboard on Bluemix should also indicate that the Secure Gateway is now connected. Something similar to this should be shown:
 
-	![](https://raw.githubusercontent.com/IBM-Bluemix/onprem-integration-demo/master/screenshots/gateway-connected.jpg)
+	![](https://raw.githubusercontent.com/data-henrik/Bluemix-onprem-data/master/screenshots/Bluemix_SGDashboard2.png)
 
 ### Phase 4: Deploy the Bluemix App
 Now that we have a connection to our MySQL data base (serving as a stand-in for our on-premises system of record) established, we will turn to our System-of-Engagment application. To keep it simple it will display a list of bookmarks (reading list) and it will be possible to add items.
