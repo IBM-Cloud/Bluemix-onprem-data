@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block body %}
+<div id="main" class="container">
+    <h2>My Bluemix Readlist</h2>
+    <table class="table table-hover">
+      <tr>
+        <th>#
+        <th>Title
+        <th>Date
+        <th>Text
+      {%- for item in items %}
+      <tr class={{ "success" if item.done }}>
+        <td>{{ item.id }}
+        <td>{{ item.name }}
+        <td>{{ item.add_date.strftime('%Y-%m-%d %H:%M') }}
+        <td><a href="{{ item.uri }}">{{ item.uri }}</a></td>
+      {%- endfor %}
+    </table>
+    <p>
+      <a href="{{ url_for('new') }}" class="btn btn-large btn-primary">New Item</a>
+
+  
+</div>
+{% endblock %}
