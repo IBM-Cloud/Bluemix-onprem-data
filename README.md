@@ -150,6 +150,7 @@ To clone, build and deploy the app on Bluemix, follow these steps:
 	```
 	cf push <APPNAME>
 	```
+	Note that the push should succeed, but starting the app will fail. The reason is that the app is looking for a specific service that we need to create first.
 
 5. Create a user provided service to configure the communication to your MySQL database:
 
