@@ -1,7 +1,24 @@
 # Python App on Bluemix using Secure Gateway for on-prem data access
 ## Integrating Web app with data residing in an on-premises data center
 
-This project provides the skeleton for a modern Cloud-based web application that accesses on-premises data, a database behind the corporate firewall. It shows how a (public or dedicated) cloud environment is used for a ["System of Engagement"](https://en.wikipedia.org/wiki/Systems_of_Engagement), while sensitive data remains in a ["System of Record"](https://en.wikipedia.org/wiki/System_of_record). For this example we are going to create an app that displays a list of web-based reading material, basically bookmarks. The user can add to it using the web interface.
+This project provides the skeleton for a modern Cloud-based web application that accesses on-premises data, a database behind the corporate firewall. It shows how a (public or dedicated) cloud environment is used for a ["System of Engagement"](https://en.wikipedia.org/wiki/Systems_of_Engagement), while sensitive data remains in a ["System of Record"](https://en.wikipedia.org/wiki/System_of_record). For this example we are going to create an app that displays a list of web-based reading material, basically bookmarks. The user can add to the list via the web interface.
+
+What you will learn:
+* Simple database-agnostic web app built with Pythong using Flask and SQLAlchemy
+* Combine Cloud Foundry app with external database resource
+  * Bluemix and third-party cloud database, or
+  * Bluemix and unbound database on Bluemix, or
+  * Bluemix Dedicated/Local and existing enterprise database behind the corporate firewall
+* (Optional) Using the Secure Gateway service on Bluemix
+* (Optional) Using Virtual Machines on Bluemix
+* (Coming) Using Docker/Container service on Bluemix
+
+What you need:
+* An IBM Bluemix account
+* A (laptop) computer
+* 30-60 minutes of time, depending on deployment option and experience
+
+## Overview
 
 The web app is built with Python, the [Flask](http://flask.pocoo.org/) microframework and the [SQLAlchemy](http://www.sqlalchemy.org/) database toolkit. The app itself is database-agnostic and can be deployed with MySQL, DB2, MariaDB, Oracle and other relational database systems. The database server could be located anywhere, in the cloud or on-prem. In our example we show how the [secure gateway service][secure_gateway_docs_url] can be utilized to implement an encrypted connection between an on-premise database server and a cloud application. Depending on corporate policies it may not be possible to simply test this scenario, so we will be using a virtual machine (in the cloud) to simulate the corporate data center. The same instructions can be used to connect a database server on a local (virtual) machine.
 
