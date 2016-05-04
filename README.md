@@ -5,7 +5,7 @@ This project provides the skeleton for a modern Cloud-based web application that
 
 What you will learn:
 * Simple database-agnostic web app built with Pythong using Flask and SQLAlchemy
-* Combine Cloud Foundry app with external database resource
+* Combine Cloud Foundry app with external database resource using user-provided services
   * Bluemix and third-party cloud database, or
   * Bluemix and unbound database on Bluemix, or
   * Bluemix Dedicated/Local and existing enterprise database behind the corporate firewall
