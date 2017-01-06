@@ -82,6 +82,6 @@ def hello():
 # Start the app, port is 5000 for local or what Bluemix tells us
 # Use the following line instead of the last line if you need to debug
 #       app.run(host='0.0.0.0', port=int(port), debug=True)
-port = os.getenv('VCAP_APP_PORT', '5000')
+port = os.getenv('PORT', '5000')
 if __name__ == "__main__":
         app.run(host='0.0.0.0', port=int(port))
