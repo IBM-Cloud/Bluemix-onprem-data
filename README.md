@@ -27,7 +27,7 @@ For many large customers, the core data that drives their business resides in es
 By connecting modern cloud applications to these on-prem systems, we are able to quickly create quality user experiences, while safely surfacing the data that we need. The Secure Gateway that is used in this tutorial opens a communication channel from behind the firewall to the IBM Cloud. The architecture our application and is shown here.
 ![](https://raw.githubusercontent.com/data-henrik/Bluemix-onprem-data/master/screenshots/SecureGateway4OnPremData.png)
 
-##Table of Contents
+## Table of Contents
 
  * [Installation](#installation)
    * [Overview](#overview)
